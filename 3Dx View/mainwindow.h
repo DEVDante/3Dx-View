@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QtWidgets/QMainWindow>
-#include "ui_mainwindow.h"
+#include <QHBoxLayout>
+#include <QMenuBar>
+#include <QMenu>
 #include "GLWidget.h"
 
 class MainWindow : public QMainWindow
@@ -14,9 +16,15 @@ public:
 	~MainWindow();
 
 private:
-	Ui::MainWindowClass ui;
-	GLWidget *glWidget;
-	QGLWidget open;
+	QWidget *mainWidget;
+	GLWidget *renderer;
+	QHBoxLayout *layout;
+
+	//menus
+	QMenuBar *mBar;
+	QMenu *fileMenu;
+	QMenu *optionsMenu;
+	QMenu *infoMenu;
 };
 
 #endif // MAINWINDOW_H

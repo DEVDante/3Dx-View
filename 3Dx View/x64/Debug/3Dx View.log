@@ -1,3 +1,7 @@
-﻿  GLWidget.cpp
-  3Dx View.vcxproj -> C:\Users\User\Desktop\3D View\3Dx-View\x64\Debug\3Dx View.exe
-  3Dx View.vcxproj -> C:\Users\User\Desktop\3D View\3Dx-View\x64\Debug\3Dx View.pdb (Full PDB)
+﻿  Moc'ing mainwindow.h...
+  moc_mainwindow.cpp
+  main.cpp
+  mainwindow.cpp
+  Generating Code...
+  3Dx View.vcxproj -> C:\Users\Jakub\Source\Repos\3Dx-View\x64\Debug\3Dx View.exe
+  3Dx View.vcxproj -> C:\Users\Jakub\Source\Repos\3Dx-View\x64\Debug\3Dx View.pdb (Full PDB)
