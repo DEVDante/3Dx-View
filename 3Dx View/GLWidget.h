@@ -3,9 +3,9 @@
 #ifndef GLWIDGET_H
 #define GLWIDGET_H
 
-#include <QGLWidget>
+#include <QOpenGLWidget>
 
-class GLWidget : public QGLWidget
+class GLWidget : public QOpenGLWidget
 
 {
 	Q_OBJECT

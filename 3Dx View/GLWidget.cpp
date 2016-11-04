@@ -1,7 +1,7 @@
 #include "GLWidget.h"
 #include <gl/GLU.h>
 
-GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
+GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent)
 {
 	
 }

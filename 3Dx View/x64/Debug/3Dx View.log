@@ -1,7 +1,14 @@
 ﻿  Moc'ing mainwindow.h...
+  Uic'ing mainwindow.ui...
+  Moc'ing GLWidget.h...
+  Rcc'ing mainwindow.qrc...
+RCC : warning : No resources in 'C:\Users\DiggerNick\Source\Repos\3Dx-View\3Dx View\mainwindow.qrc'.
+  
+  moc_GLWidget.cpp
   moc_mainwindow.cpp
+  GLWidget.cpp
   main.cpp
   mainwindow.cpp
   Generating Code...
-  3Dx View.vcxproj -> C:\Users\Jakub\Source\Repos\3Dx-View\x64\Debug\3Dx View.exe
-  3Dx View.vcxproj -> C:\Users\Jakub\Source\Repos\3Dx-View\x64\Debug\3Dx View.pdb (Full PDB)
+  qrc_mainwindow.cpp
+  3Dx View.vcxproj -> C:\Users\DiggerNick\Source\Repos\3Dx-View\x64\Debug\3Dx View.exe
