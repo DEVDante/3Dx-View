@@ -61,7 +61,7 @@ void GLWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
 }
 
 const QMetaObject GLWidget::staticMetaObject = {
-    { &QGLWidget::staticMetaObject, qt_meta_stringdata_GLWidget.data,
+    { &QOpenGLWidget::staticMetaObject, qt_meta_stringdata_GLWidget.data,
       qt_meta_data_GLWidget,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
@@ -76,12 +76,12 @@ void *GLWidget::qt_metacast(const char *_clname)
     if (!_clname) return Q_NULLPTR;
     if (!strcmp(_clname, qt_meta_stringdata_GLWidget.stringdata0))
         return static_cast<void*>(const_cast< GLWidget*>(this));
-    return QGLWidget::qt_metacast(_clname);
+    return QOpenGLWidget::qt_metacast(_clname);
 }
 
 int GLWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QGLWidget::qt_metacall(_c, _id, _a);
+    _id = QOpenGLWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     return _id;
