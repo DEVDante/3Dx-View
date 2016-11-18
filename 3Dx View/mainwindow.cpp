@@ -1,3 +1,5 @@
+#include <QMessageBox>
+#include <QApplication>
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
@@ -76,10 +78,10 @@ void MainWindow::exportM()
 
 void MainWindow::about()
 {
-
+	QMessageBox::information(this, tr("About"), tr("Info"));
 }
 
 void MainWindow::exit()
 {
-
+	QApplication::quit();
 }
