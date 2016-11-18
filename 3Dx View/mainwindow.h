@@ -11,6 +11,12 @@ class MainWindow : public QMainWindow
 {
 	Q_OBJECT
 
+private slots:
+	void import();
+	void exportM();
+	void exit();
+	void about();
+
 public:
 	MainWindow(QWidget *parent = 0);
 	~MainWindow();
@@ -23,8 +29,14 @@ private:
 	//menus
 	QMenuBar *mBar;
 	QMenu *fileMenu;
+	QAction *importAction;
+	QAction *exportAction;
+	QAction *exitAction;
 	QMenu *optionsMenu;
 	QMenu *infoMenu;
+	QAction *aboutAction;
+
+	void createActions();
 };
 
 #endif // MAINWINDOW_H
