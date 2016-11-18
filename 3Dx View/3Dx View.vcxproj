@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Face.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_GLWidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -211,6 +212,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Face.h" />
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h" />
     <ClInclude Include="Model3D.h" />
     <ClInclude Include="Object3D.h" />

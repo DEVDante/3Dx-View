@@ -1,4 +1,5 @@
 #pragma once
+
 class Vertex
 {
 private: 
@@ -8,7 +9,7 @@ public:
 	double y;
 	double z;
 
-	Vertex();
+	Vertex(double x, double y, double z);
 	~Vertex();
 };
 
