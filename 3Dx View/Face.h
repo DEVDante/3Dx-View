@@ -3,7 +3,7 @@
 struct Point
 {
 	int vertexIndices;
-	int vartexTexture;
+	int vertexTexture;
 	int normalIndices;
 };
 

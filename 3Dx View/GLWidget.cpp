@@ -93,5 +93,12 @@ void GLWidget::paintGL()
 	glColor3f(1, 1, 10);
 	//glRotatef(angle, 0, 1, 1);
 	//angle+=10;
+	glPolygonMode(faceType, faceRenderMode);
 	drawTriangles(&(model3D->model[0]));
+}
+
+void GLWidget::changeRenderMode(GLenum face, GLenum mode)
+{
+	faceType = face;
+	faceRenderMode = mode;
 }

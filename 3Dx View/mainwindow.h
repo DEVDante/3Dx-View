@@ -17,6 +17,9 @@ private slots:
 	void exit();
 	void about();
 
+	void wireframeMode();
+	void sShadedMode();
+
 public:
 	MainWindow(QWidget *parent = 0);
 	~MainWindow();
@@ -28,11 +31,17 @@ private:
 
 	//menus
 	QMenuBar *mBar;
+
 	QMenu *fileMenu;
 	QAction *importAction;
 	QAction *exportAction;
 	QAction *exitAction;
+
 	QMenu *optionsMenu;
+	QActionGroup *renderMode;
+	QAction *setWireframe;
+	QAction *setSmoothShaded;
+
 	QMenu *infoMenu;
 	QAction *aboutAction;
 

@@ -5,7 +5,7 @@
 
 #include <QOpenGLWidget>
 #include <qtimer.h>
-#include"Model3D.h"
+#include "Model3D.h"
 
 class GLWidget : public QOpenGLWidget
 {
@@ -14,6 +14,8 @@ class GLWidget : public QOpenGLWidget
 public:
 	GLWidget(QWidget *parent = 0);
 	~GLWidget();
+	void changeRenderMode(GLenum, GLenum);
+
 	int angle=0;
 	QTimer timer;
 
@@ -23,6 +25,9 @@ protected:
 	void initializeGL();
 	void resizeGL(int w, int h);
 	void paintGL();
+
+	GLenum faceType = GL_FRONT_AND_BACK; //might be possible to change in OpenGL >3.0
+	GLenum faceRenderMode = GL_FILL;
 };
 
 #endif // GLWIDGET_H

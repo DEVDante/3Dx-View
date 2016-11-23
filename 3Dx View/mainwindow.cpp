@@ -26,7 +26,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 	fileMenu->addAction(exitAction);
 
 	optionsMenu = menuBar()->addMenu(tr("&Options"));
-	//add actions
+	optionsMenu->addSeparator()->setText(tr("Rendering mode"));
+	optionsMenu->addAction(setWireframe);
+	optionsMenu->addAction(setSmoothShaded);
 
 	infoMenu = menuBar()->addMenu(tr("&Info"));
 	infoMenu->addAction(aboutAction);
@@ -41,6 +43,16 @@ MainWindow::~MainWindow()
 	delete renderer;
 	delete layout;
 	delete mainWidget;
+
+	delete mBar;
+	delete fileMenu;
+	delete importAction;
+	delete exportAction;
+	delete exitAction;
+	delete optionsMenu;
+	delete renderMode;
+	delete infoMenu;
+	delete aboutAction;
 }
 
 void MainWindow::createActions()
@@ -64,6 +76,18 @@ void MainWindow::createActions()
 	aboutAction->setShortcut(QKeySequence::HelpContents);
 	aboutAction->setStatusTip(tr("About application"));
 	connect(aboutAction, &QAction::triggered, this, &MainWindow::about);
+
+	renderMode = new QActionGroup(this);
+	setWireframe = new QAction(tr("Wireframe"), renderMode);
+	setWireframe->setCheckable(true);
+	connect(setWireframe, &QAction::triggered, this, &MainWindow::wireframeMode);
+	renderMode->addAction(setWireframe);
+
+	setSmoothShaded = new QAction(tr("Smooth shaded"), renderMode);
+	setSmoothShaded->setCheckable(true);
+	setSmoothShaded->setChecked(true);
+	connect(setSmoothShaded, &QAction::triggered, this, &MainWindow::sShadedMode);
+	renderer->addAction(setSmoothShaded);
 }
 
 void MainWindow::import()
@@ -79,6 +103,16 @@ void MainWindow::exportM()
 void MainWindow::about()
 {
 	QMessageBox::information(this, tr("About"), tr("Info"));
+}
+
+void MainWindow::wireframeMode()
+{
+	renderer->changeRenderMode(GL_FRONT_AND_BACK, GL_LINE);
+}
+
+void MainWindow::sShadedMode()
+{
+	renderer->changeRenderMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void MainWindow::exit()
