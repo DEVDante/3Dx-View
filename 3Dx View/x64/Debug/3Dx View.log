@@ -1,3 +1,10 @@
-﻿  mainwindow.cpp
-  3Dx View.vcxproj -> C:\Users\Jakub\Source\Repos\3Dx-View\x64\Debug\3Dx View.exe
-  3Dx View.vcxproj -> C:\Users\Jakub\Source\Repos\3Dx-View\x64\Debug\3Dx View.pdb (Full PDB)
+﻿  GLWidget.cpp
+  moc_GLWidget.cpp
+  moc_mainwindow.cpp
+  Model3D.cpp
+  Object3D.cpp
+  main.cpp
+  mainwindow.cpp
+  Generating Code...
+  3Dx View.vcxproj -> C:\Users\User\Desktop\Studia\3Dx-View\x64\Debug\3Dx View.exe
+  3Dx View.vcxproj -> C:\Users\User\Desktop\Studia\3Dx-View\x64\Debug\3Dx View.pdb (Full PDB)

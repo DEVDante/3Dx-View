@@ -26,18 +26,18 @@ GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent)
 	object3D->normals.push_back(*new Vertex(1.0, 0.0, 0.0));
 	object3D->normals.push_back(*new Vertex(-1.0, 0.0, 0.0));
 
-	object3D->faces.push_back(*new Vertex(1.0, 7.0, 5.0));
-	object3D->faces.push_back(*new Vertex(1.0, 3.0, 7.0));
-	object3D->faces.push_back(*new Vertex(1.0, 4.0, 3.0));
-	object3D->faces.push_back(*new Vertex(1.0, 2.0, 4.0));
-	object3D->faces.push_back(*new Vertex(3.0, 8.0, 7.0));
-	object3D->faces.push_back(*new Vertex(3.0, 4.0, 8.0));
-	object3D->faces.push_back(*new Vertex(5.0, 7.0, 8.0));
-	object3D->faces.push_back(*new Vertex(5.0, 8.0, 6.0));
-	object3D->faces.push_back(*new Vertex(1.0, 5.0, 6.0));
-	object3D->faces.push_back(*new Vertex(1.0, 6.0, 2.0));
-	object3D->faces.push_back(*new Vertex(2.0, 6.0, 8.0));
-	object3D->faces.push_back(*new Vertex(2.0, 8.0, 4.0));
+	object3D->faces.push_back(*new Face(new Point(1, 0, 2), new Point(7, 0, 2), new Point(5, 0, 2)));
+	object3D->faces.push_back(*new Face(new Point(1, 0, 2), new Point(3, 0, 2), new Point(7, 0, 2)));
+	object3D->faces.push_back(*new Face(new Point(1, 0, 6), new Point(4, 0, 6), new Point(3, 0, 6)));
+	object3D->faces.push_back(*new Face(new Point(1, 0, 6), new Point(2, 0, 6), new Point(4, 0, 6)));
+	object3D->faces.push_back(*new Face(new Point(3, 0, 3), new Point(8, 0, 3), new Point(7, 0, 3)));
+	object3D->faces.push_back(*new Face(new Point(3, 0, 3), new Point(4, 0, 3), new Point(8, 0, 3)));
+	object3D->faces.push_back(*new Face(new Point(5, 0, 5), new Point(7, 0, 5), new Point(8, 0, 5)));
+	object3D->faces.push_back(*new Face(new Point(5, 0, 5), new Point(8, 0, 5), new Point(6, 0, 5)));
+	object3D->faces.push_back(*new Face(new Point(1, 0, 4), new Point(5, 0, 4), new Point(6, 0, 4)));
+	object3D->faces.push_back(*new Face(new Point(1, 0, 4), new Point(6, 0, 4), new Point(2, 0, 4)));
+	object3D->faces.push_back(*new Face(new Point(2, 0, 1), new Point(6, 0, 1), new Point(8, 0, 1)));
+	object3D->faces.push_back(*new Face(new Point(2, 0, 1), new Point(8, 0, 1), new Point(4, 0, 1)));
 
 	model3D->model.push_back(*object3D);
 }
@@ -64,22 +64,28 @@ void GLWidget::resizeGL(int w, int h)
 	gluPerspective(45.0, (float)w / h, 0.01, 100);
 }
 
+void drawFaces(Object3D * object, int vIdx, int vnIdx, int txIdx = 0)
+{
+	Vertex v = object->normals[vnIdx - 1];
+	glNormal3d(v.x, v.y, v.z);
+
+	v = object->vertices[vIdx - 1];
+	glVertex3d(v.x, v.y, v.z);
+}
+
 void GLWidget::drawTriangles(Object3D * object)
 {
 	glBegin(GL_TRIANGLES);
 	for (int i = 0; i < object->faces.size(); i++)
 	{
-		int index = (int)object->faces[i].x -1;
-		Vertex v = object->vertices[index];
-		glVertex3d(v.x, v.y, v.z);
+		Point * point = object->faces[i].first;
+		drawFaces(object, point->vertexIndices, point->normalIndices);
 
-		index = (int)object->faces[i].y -1;
-		v = object->vertices[index];
-		glVertex3d(v.x, v.y, v.z);
+		point = object->faces[i].second;
+		drawFaces(object, point->vertexIndices, point->normalIndices);
 
-		index = (int)object->faces[i].z -1;
-		v = object->vertices[index]; 
-		glVertex3d(v.x, v.y, v.z);
+		point = object->faces[i].third;
+		drawFaces(object, point->vertexIndices, point->normalIndices);
 	}
 	glEnd();
 }
@@ -91,8 +97,6 @@ void GLWidget::paintGL()
 	glLoadIdentity(); // to samo co glLoadMatrix
 	gluLookAt(4, 3, 5, 0, 0, 0, 1, 0, 0); //eye XYZ, centerXYZ, upXYZ(not parallel to line from eye to reference point
 	glColor3f(1, 1, 10);
-	//glRotatef(angle, 0, 1, 1);
-	//angle+=10;
 	glPolygonMode(faceType, faceRenderMode);
 	drawTriangles(&(model3D->model[0]));
 }

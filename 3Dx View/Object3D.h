@@ -15,7 +15,6 @@ public:
 	std::vector<Vertex> vertices;
 	std::vector<Vertex> normals;
 	std::vector<Vertex> uvs;
-	std::vector<Vertex> faces;
-	std::vector<Face> faces2;
+	std::vector<Face> faces;
 
 };
