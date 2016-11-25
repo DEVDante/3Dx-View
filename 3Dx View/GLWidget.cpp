@@ -5,8 +5,6 @@
 
 GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent)
 {
-	connect(&timer, SIGNAL(timeout()), this, SLOT(updateGL()));
-	//timer.start(16);
 	model3D = new Model3D;
 	Object3D * object3D = new Object3D;
 

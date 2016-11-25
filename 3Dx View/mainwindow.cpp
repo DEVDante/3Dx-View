@@ -40,19 +40,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
 MainWindow::~MainWindow()
 {
-	delete renderer;
-	delete layout;
-	delete mainWidget;
-
-	delete mBar;
-	delete fileMenu;
-	delete importAction;
-	delete exportAction;
-	delete exitAction;
-	delete optionsMenu;
-	delete renderMode;
-	delete infoMenu;
-	delete aboutAction;
 }
 
 void MainWindow::createActions()
@@ -108,11 +95,13 @@ void MainWindow::about()
 void MainWindow::wireframeMode()
 {
 	renderer->changeRenderMode(GL_FRONT_AND_BACK, GL_LINE);
+	renderer->update();
 }
 
 void MainWindow::sShadedMode()
 {
 	renderer->changeRenderMode(GL_FRONT_AND_BACK, GL_FILL);
+	renderer->update();
 }
 
 void MainWindow::exit()

@@ -12,22 +12,22 @@ class GLWidget : public QOpenGLWidget
 	Q_OBJECT
 
 public:
+	int angle = 0;
+
 	GLWidget(QWidget *parent = 0);
 	~GLWidget();
 	void changeRenderMode(GLenum, GLenum);
 
-	int angle=0;
-	QTimer timer;
 
 protected: 
-	void drawTriangles(Object3D * object);
+	GLenum faceType = GL_FRONT_AND_BACK; //might be possible to change in OpenGL >3.0
+	GLenum faceRenderMode = GL_FILL;
 	Model3D * model3D;
+
+	void drawTriangles(Object3D * object);
 	void initializeGL();
 	void resizeGL(int w, int h);
 	void paintGL();
-
-	GLenum faceType = GL_FRONT_AND_BACK; //might be possible to change in OpenGL >3.0
-	GLenum faceRenderMode = GL_FILL;
 };
 
 #endif // GLWIDGET_H
