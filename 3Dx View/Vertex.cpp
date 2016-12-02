@@ -8,6 +8,10 @@ Vertex::Vertex(double x, double y, double z)
 	this->z = z;
 }
 
+Vertex::Vertex()
+{
+}
+
 Vertex::~Vertex()
 {
 

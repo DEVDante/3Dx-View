@@ -23,6 +23,7 @@ public:
 	Point * second;
 	Point * third;
 
+	Face();
 	Face(Point * first, Point * second, Point * third);
 	~Face();
 };
