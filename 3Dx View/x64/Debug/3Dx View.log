@@ -1,5 +1,9 @@
-﻿  Library.cpp
+﻿  Moc'ing GLWidget.h...
+  GLWidget.cpp
+  moc_GLWidget.cpp
+  moc_mainwindow.cpp
   main.cpp
-main.cpp(11): warning C4930: 'Library test(void)': prototyped function not called (was a variable definition intended?)
+  mainwindow.cpp
   Generating Code...
-  3Dx View.vcxproj -> C:\Users\DiggerNick\Source\NoweRepo\3Dx-View\x64\Debug\3Dx View.exe
+  3Dx View.vcxproj -> C:\Users\User\Desktop\3Dx-View\x64\Debug\3Dx View.exe
+  3Dx View.vcxproj -> C:\Users\User\Desktop\3Dx-View\x64\Debug\3Dx View.pdb (Full PDB)

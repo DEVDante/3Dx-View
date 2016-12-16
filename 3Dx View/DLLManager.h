@@ -2,8 +2,8 @@
 #include <vector>
 #include <QDir>
 #include <QString>
-#include <boost\dll.hpp>
-#include <boost\filesystem\path.hpp>
+#include <boost/dll.hpp>
+#include<boost/filesystem/path.hpp>
 
 class DLLManager
 {

@@ -93,9 +93,12 @@ void GLWidget::paintGL()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //czyœci bufory
 	glMatrixMode(GL_MODELVIEW); //wypiera obecnie urzywany typ macierzy (do niego bed¹ siê odnosiæ kolejne polecenia)
 	glLoadIdentity(); // to samo co glLoadMatrix
-	gluLookAt(4, 3, 5, 0, 0, 0, 1, 0, 0); //eye XYZ, centerXYZ, upXYZ(not parallel to line from eye to reference point
+	gluLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, 1, 0, 0); //eye XYZ, centerXYZ, upXYZ(not parallel to line from eye to reference point
 	glColor3f(1, 1, 10);
 	glPolygonMode(faceType, faceRenderMode);
+
+	glRotatef(xRot + angleX, 1, 0, 0);
+	glRotatef(yRot + angleY, 0, 1, 0);
 	drawTriangles(&(model3D->model[0]));
 }
 
@@ -103,4 +106,23 @@ void GLWidget::changeRenderMode(GLenum face, GLenum mode)
 {
 	faceType = face;
 	faceRenderMode = mode;
+}
+
+void GLWidget::mousePressEvent(QMouseEvent * event)
+{
+	posX = event->x();
+	posY = event->y();
+}
+
+void GLWidget::mouseMoveEvent(QMouseEvent * event)
+{
+	angleX = ((float)event->x() - posX);
+	angleY = (posY - (float)event->y());
+	update();
+}
+
+void GLWidget::mouseReleaseEvent(QMouseEvent * event)
+{
+	xRot += angleX;
+	yRot += angleY;
 }

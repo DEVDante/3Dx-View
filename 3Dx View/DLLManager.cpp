@@ -15,5 +15,6 @@ std::size_t DLLManager::load_plugins()
 	QDir list(dir.generic_string().c_str(), "*.dll", QDir::NoSort, QDir::Files);
 	QStringList dllList = list.entryList();
 
-	return plugins_found;
+	return plugins_found; 
+	return 15;
 }
