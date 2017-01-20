@@ -2,6 +2,7 @@
 
 #include <gl/GLU.h>
 #include<iostream>
+#include <QPainter>
 
 GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent)
 {
@@ -93,13 +94,27 @@ void GLWidget::paintGL()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //czyœci bufory
 	glMatrixMode(GL_MODELVIEW); //wypiera obecnie urzywany typ macierzy (do niego bed¹ siê odnosiæ kolejne polecenia)
 	glLoadIdentity(); // to samo co glLoadMatrix
-	gluLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, 1, 0, 0); //eye XYZ, centerXYZ, upXYZ(not parallel to line from eye to reference point
+	gluLookAt(eyeX+countSpeed(zoom), eyeY+countSpeed(zoom), eyeZ +countSpeed(zoom), centerX, centerY, centerZ, 1, 0, 0); //eye XYZ, centerXYZ, upXYZ(not parallel to line from eye to reference point
 	glColor3f(1, 1, 10);
 	glPolygonMode(faceType, faceRenderMode);
 
 	glRotatef(xRot + angleX, 1, 0, 0);
 	glRotatef(yRot + angleY, 0, 1, 0);
 	drawTriangles(&(model3D->model[0]));
+
+	/*QPainter painter(this);
+	painter.setPen(Qt::white);
+	painter.setFont(QFont("Arial", 12));
+
+	std::string s = std::to_string(delta);
+	painter.drawText(30, 20, "wheelDelta");
+	painter.drawText(30, 40, tr(s.c_str()));
+	s = std::to_string(zoom);
+	painter.drawText(30, 60, "zoom");
+	painter.drawText(30, 80, tr(s.c_str()));
+
+
+	painter.end();*/
 }
 
 void GLWidget::changeRenderMode(GLenum face, GLenum mode)
@@ -112,17 +127,52 @@ void GLWidget::mousePressEvent(QMouseEvent * event)
 {
 	posX = event->x();
 	posY = event->y();
+	angleX = 0;
+	angleY = 0;
 }
 
 void GLWidget::mouseMoveEvent(QMouseEvent * event)
 {
-	angleX = ((float)event->x() - posX);
-	angleY = (posY - (float)event->y());
+	angleX = ((float)(event->x() - posX)/10);
+	angleY = (posY - (float)event->y())/10;
 	update();
 }
 
 void GLWidget::mouseReleaseEvent(QMouseEvent * event)
 {
-	xRot += angleX;
+	xRot += angleX; //mozna dodac normalizacje od 0 do 360
 	yRot += angleY;
+	angleX = 0;
+	angleY = 0;
+}
+
+float GLWidget::countSpeed(float x)
+{
+	if (x != 0)
+		return -norm / x;
+	else return 0;
+}
+
+void GLWidget::wheelEvent(QWheelEvent * event)
+{
+	delta = event->delta();
+	zoom += delta/50;
+
+	if (zoom > 100) zoom = 100;
+	if (zoom < norm+5) zoom = norm +5;
+
+	//numDegrees = event->delta() / 8;
+	//int numSteps = numDegrees / 15;
+	//zoom *= countDistance();
+
+	//eyeX += zoom;
+	//eyeY += zoom;
+	//eyeZ += zoom;
+
+	update();
+}
+
+float GLWidget::countDistance()
+{
+	return sqrt(pow((eyeX - centerX), 2) + pow((eyeY - centerY), 2) + pow((eyeZ - centerZ), 2));
 }

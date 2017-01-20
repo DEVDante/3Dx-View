@@ -1,9 +1,3 @@
-﻿  Moc'ing GLWidget.h...
-  GLWidget.cpp
-  moc_GLWidget.cpp
-  moc_mainwindow.cpp
-  main.cpp
-  mainwindow.cpp
-  Generating Code...
-  3Dx View.vcxproj -> C:\Users\User\Desktop\3Dx-View\x64\Debug\3Dx View.exe
-  3Dx View.vcxproj -> C:\Users\User\Desktop\3Dx-View\x64\Debug\3Dx View.pdb (Full PDB)
+﻿  GLWidget.cpp
+  3Dx View.vcxproj -> C:\Users\User\Desktop\Studia\3Dx-View\x64\Debug\3Dx View.exe
+  3Dx View.vcxproj -> C:\Users\User\Desktop\Studia\3Dx-View\x64\Debug\3Dx View.pdb (Full PDB)

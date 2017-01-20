@@ -14,6 +14,7 @@ class GLWidget : public QOpenGLWidget
 
 public:
 	int angle = 0;
+	int zoom = 0;
 
 	GLWidget(QWidget *parent = 0);
 	~GLWidget();
@@ -22,9 +23,12 @@ public:
 	float angleX = 0, angleY = 0;
 	float xRot = 0.0f, yRot = 0.0f;
 	float posX = 0, posY = 0;
+	int delta = 0;
 
 	float eyeX = 3.0f, eyeY = 4.0f, eyeZ = 5.0f;
 	float centerX = 0.0f, centerY = 0.0f, centerZ = 0.0f;
+
+	int norm = 20;
 
 
 protected: 
@@ -40,6 +44,10 @@ protected:
 	void mouseMoveEvent(QMouseEvent *event);
 	void mousePressEvent(QMouseEvent * event);
 	void mouseReleaseEvent(QMouseEvent * event);
+	void wheelEvent(QWheelEvent * event);
+
+	float countDistance();
+	float countSpeed(float x );
 
 };
 
