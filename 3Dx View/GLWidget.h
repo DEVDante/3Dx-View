@@ -48,7 +48,7 @@ protected:
 
 	float countDistance();
 	float countSpeed(float x );
-
+	float normZoom(float eye, float center);
 };
 
 #endif // GLWIDGET_H

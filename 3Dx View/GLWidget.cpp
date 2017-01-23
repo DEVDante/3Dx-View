@@ -94,10 +94,9 @@ void GLWidget::paintGL()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //czyœci bufory
 	glMatrixMode(GL_MODELVIEW); //wypiera obecnie urzywany typ macierzy (do niego bed¹ siê odnosiæ kolejne polecenia)
 	glLoadIdentity(); // to samo co glLoadMatrix
-	gluLookAt(eyeX+countSpeed(zoom), eyeY+countSpeed(zoom), eyeZ +countSpeed(zoom), centerX, centerY, centerZ, 1, 0, 0); //eye XYZ, centerXYZ, upXYZ(not parallel to line from eye to reference point
+	gluLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, 1, 0, 0); //eye XYZ, centerXYZ, upXYZ(not parallel to line from eye to reference point
 	glColor3f(1, 1, 10);
 	glPolygonMode(faceType, faceRenderMode);
-
 	glRotatef(xRot + angleX, 1, 0, 0);
 	glRotatef(yRot + angleY, 0, 1, 0);
 	drawTriangles(&(model3D->model[0]));
@@ -106,13 +105,13 @@ void GLWidget::paintGL()
 	painter.setPen(Qt::white);
 	painter.setFont(QFont("Arial", 12));
 
-	std::string s = std::to_string(delta);
-	painter.drawText(30, 20, "wheelDelta");
+	float x = countDistance();
+	std::string s = std::to_string(x);
+	painter.drawText(30, 20, "distance");
 	painter.drawText(30, 40, tr(s.c_str()));
 	s = std::to_string(zoom);
 	painter.drawText(30, 60, "zoom");
 	painter.drawText(30, 80, tr(s.c_str()));
-
 
 	painter.end();*/
 }
@@ -140,7 +139,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent * event)
 
 void GLWidget::mouseReleaseEvent(QMouseEvent * event)
 {
-	xRot += angleX; //mozna dodac normalizacje od 0 do 360
+	xRot += angleX;
 	yRot += angleY;
 	angleX = 0;
 	angleY = 0;
@@ -156,23 +155,23 @@ float GLWidget::countSpeed(float x)
 void GLWidget::wheelEvent(QWheelEvent * event)
 {
 	delta = event->delta();
-	zoom += delta/50;
-
-	if (zoom > 100) zoom = 100;
-	if (zoom < norm+5) zoom = norm +5;
-
-	//numDegrees = event->delta() / 8;
-	//int numSteps = numDegrees / 15;
-	//zoom *= countDistance();
-
-	//eyeX += zoom;
-	//eyeY += zoom;
-	//eyeZ += zoom;
+	zoom = (delta / 100);
+	
+	eyeX = normZoom(eyeX,centerX);
+	eyeY = normZoom(eyeY, centerY);
+	eyeZ = normZoom(eyeZ, centerZ);
 
 	update();
 }
 
 float GLWidget::countDistance()
 {
-	return sqrt(pow((eyeX - centerX), 2) + pow((eyeY - centerY), 2) + pow((eyeZ - centerZ), 2));
+	return (sqrt(pow((eyeX - centerX), 2) + pow((eyeY - centerY), 2) + pow((eyeZ - centerZ), 2)))/5;
+}
+
+float GLWidget::normZoom(float eye, float center)
+{
+	float tmp = eye + zoom;
+	if (tmp > center) return tmp;
+	else return center;
 }
