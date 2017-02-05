@@ -1,6 +1,9 @@
 #include <QMessageBox>
 #include <QApplication>
+#include <QFileDialog>
+#include <QDir>
 #include "mainwindow.h"
+#include "PluginAPI.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -79,7 +82,24 @@ void MainWindow::createActions()
 
 void MainWindow::import()
 {
+	QStringList filter("*.dll");
+	QDir directory(QDir::currentPath());
+	QStringList dllList = directory.entryList(filter);
+	std::vector<boost::filesystem::path> plugins;
+	for (int i = 0; i < dllList.length(); i++)
+		plugins.push_back(QDir::currentPath().toStdString() + "/" + dllList[i].toStdString());
 
+	boost::shared_ptr<PluginAPI> plugin;
+	QString fileFilter = "";
+	for (int i = 0; i < plugins.size(); i++)
+	{
+		plugin = boost::dll::import<PluginAPI>(plugins[i], "plugin", boost::dll::load_mode::append_decorations);
+		fileFilter += QString::fromStdString(plugin->name()).toUpper() + " (*." + QString::fromStdString(plugin->name()) + ");;";
+	}
+
+	QString filename = QFileDialog::getOpenFileName(this, tr("Import model file"), QDir::currentPath(), fileFilter);
+
+	struct model test = plugin->importM("");
 }
 
 void MainWindow::exportM()

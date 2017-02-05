@@ -8,7 +8,7 @@ class Model3D
 private: 
 
 public:
-	std::vector<Object3D> model;
+	std::vector<Object3D> models;
 
 	Model3D();
 	~Model3D();

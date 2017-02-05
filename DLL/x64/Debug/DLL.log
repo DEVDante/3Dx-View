@@ -1,0 +1,3 @@
+﻿  PluginTEMPLATE.cpp
+c:\users\dante\documents\github\3dx-view\dll\plugintemplate.cpp(45): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  DLL.vcxproj -> C:\Users\Dante\Documents\GitHub\3Dx-View\x64\Debug\DLL.dll
