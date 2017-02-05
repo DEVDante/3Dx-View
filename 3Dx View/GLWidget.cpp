@@ -109,9 +109,6 @@ void GLWidget::paintGL()
 	std::string s = std::to_string(x);
 	painter.drawText(30, 20, "distance");
 	painter.drawText(30, 40, tr(s.c_str()));
-	s = std::to_string(zoom);
-	painter.drawText(30, 60, "zoom");
-	painter.drawText(30, 80, tr(s.c_str()));
 
 	painter.end();*/
 }
@@ -145,19 +142,12 @@ void GLWidget::mouseReleaseEvent(QMouseEvent * event)
 	angleY = 0;
 }
 
-float GLWidget::countSpeed(float x)
-{
-	if (x != 0)
-		return -norm / x;
-	else return 0;
-}
-
 void GLWidget::wheelEvent(QWheelEvent * event)
 {
-	delta = event->delta();
+	int delta = event->delta();
 	zoom = (delta / 100);
 	
-	eyeX = normZoom(eyeX,centerX);
+	eyeX = normZoom(eyeX, centerX);
 	eyeY = normZoom(eyeY, centerY);
 	eyeZ = normZoom(eyeZ, centerZ);
 
@@ -166,7 +156,7 @@ void GLWidget::wheelEvent(QWheelEvent * event)
 
 float GLWidget::countDistance()
 {
-	return (sqrt(pow((eyeX - centerX), 2) + pow((eyeY - centerY), 2) + pow((eyeZ - centerZ), 2)))/5;
+	return (sqrt(pow((eyeX - centerX), 2) + pow((eyeY - centerY), 2) + pow((eyeZ - centerZ), 2))) + 1;
 }
 
 float GLWidget::normZoom(float eye, float center)
