@@ -38,7 +38,7 @@ GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent)
 	object3D->faces.push_back(*new Face(new Point(2, 0, 1), new Point(6, 0, 1), new Point(8, 0, 1)));
 	object3D->faces.push_back(*new Face(new Point(2, 0, 1), new Point(8, 0, 1), new Point(4, 0, 1)));
 
-	model3D->model.push_back(*object3D);
+	model3D->models.push_back(*object3D);
 }
 
 GLWidget::~GLWidget()
@@ -99,7 +99,7 @@ void GLWidget::paintGL()
 	glPolygonMode(faceType, faceRenderMode);
 	glRotatef(xRot + angleX, 1, 0, 0);
 	glRotatef(yRot + angleY, 0, 1, 0);
-	drawTriangles(&(model3D->model[0]));
+	drawTriangles(&(model3D->models[0]));
 
 	/*QPainter painter(this);
 	painter.setPen(Qt::white);

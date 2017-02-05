@@ -91,23 +91,54 @@ void MainWindow::import()
 
 	boost::shared_ptr<PluginAPI> plugin;
 	QString fileFilter = "";
+	std::map<std::string, boost::filesystem::path> pluglist;
+
 	for (int i = 0; i < plugins.size(); i++)
 	{
 		plugin = boost::dll::import<PluginAPI>(plugins[i], "plugin", boost::dll::load_mode::append_decorations);
+		pluglist[plugin->name()] = plugins[i];
 		fileFilter += QString::fromStdString(plugin->name()).toUpper() + " (*." + QString::fromStdString(plugin->name()) + ");;";
 	}
 
 	QString filename = QFileDialog::getOpenFileName(this, tr("Import model file"), QDir::currentPath(), fileFilter);
 
-	if (!filename.isEmpty())
+	if (filename != "")
 	{
+		plugin = boost::dll::import<PluginAPI>(pluglist[QFileInfo(filename).suffix().toStdString()], "plugin", boost::dll::load_mode::append_decorations);
 
+		renderer->model3D = &(plugin->importM(filename.toStdString()));
+		renderer->update();
 	}
 }
 
 void MainWindow::exportM()
 {
+	QStringList filter("*.dll");
+	QDir directory(QDir::currentPath());
+	QStringList dllList = directory.entryList(filter);
+	std::vector<boost::filesystem::path> plugins;
+	for (int i = 0; i < dllList.length(); i++)
+		plugins.push_back(QDir::currentPath().toStdString() + "/" + dllList[i].toStdString());
 
+	boost::shared_ptr<PluginAPI> plugin;
+	QString fileFilter = "";
+	std::map<std::string, boost::filesystem::path> pluglist;
+
+	for (int i = 0; i < plugins.size(); i++)
+	{
+		plugin = boost::dll::import<PluginAPI>(plugins[i], "plugin", boost::dll::load_mode::append_decorations);
+		pluglist[plugin->name()] = plugins[i];
+		fileFilter += QString::fromStdString(plugin->name()).toUpper() + " (*." + QString::fromStdString(plugin->name()) + ");;";
+	}
+
+	QString filename = QFileDialog::getSaveFileName(this, tr("Export model to file"), QDir::currentPath(), fileFilter);
+
+	if (filename != "")
+	{
+		plugin = boost::dll::import<PluginAPI>(pluglist[QFileInfo(filename).suffix().toStdString()], "plugin", boost::dll::load_mode::append_decorations);
+
+		plugin->exportM(*(renderer->model3D), filename.toStdString());
+	}
 }
 
 void MainWindow::about()

@@ -27,11 +27,12 @@ public:
 	int norm = 20;
 	int zoom = 0;
 
+	Model3D * model3D;
+
 
 protected: 
 	GLenum faceType = GL_FRONT_AND_BACK; //might be possible to change in OpenGL >3.0
 	GLenum faceRenderMode = GL_FILL;
-	Model3D * model3D;
 
 	void drawTriangles(Object3D * object);
 	void initializeGL();

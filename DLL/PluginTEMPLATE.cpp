@@ -59,15 +59,15 @@ namespace format {
 			return "obj";	//zwracac nazwe rozszerzenia
 		}
 
-		void exportM(Model3D, char* filename)
+		void exportM(Model3D, std::string)
 		{
 			int n = 2;
 		}
 
-		Model3D importM(char* filename)
+		Model3D importM(std::string fname)
 		{
 			Model3D *mdl = new Model3D();
-			std::ifstream file("C:\\cube.obj");
+			std::ifstream file(fname);
 			if (file.is_open())
 			{
 				std::string text = "";
