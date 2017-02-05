@@ -3,6 +3,7 @@
 #include <boost/make_shared.hpp>
 #include <boost/function.hpp>
 #include <iostream>
+#include "Model3D.h"
 
 struct vert
 {
@@ -59,8 +60,8 @@ struct model
 class PluginAPI {
 public:
 	virtual std::string name() const = 0;		//nazwa obslugiwanego formatu
-	virtual void exportM(struct model, char* filename) = 0;
-	virtual struct model importM(char* filename) = 0;
+	virtual void exportM(Model3D, char* filename) = 0;
+	virtual Model3D importM(char* filename) = 0;
 	virtual ~PluginAPI() {}
 };
 

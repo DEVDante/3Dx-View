@@ -99,7 +99,10 @@ void MainWindow::import()
 
 	QString filename = QFileDialog::getOpenFileName(this, tr("Import model file"), QDir::currentPath(), fileFilter);
 
-	struct model test = plugin->importM("");
+	if (!filename.isEmpty())
+	{
+
+	}
 }
 
 void MainWindow::exportM()
