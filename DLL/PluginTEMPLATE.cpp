@@ -112,10 +112,120 @@ namespace format {
 		std::string name() const {
 			return "obj";	//zwracac nazwe rozszerzenia
 		}
-
-		void exportM(Model3D, std::string)
+				
+		void exportM(Model3D model, std::string name)
 		{
-			int n = 2;
+
+			std::ofstream plik(name, std::ios_base::out);
+
+			plik << "#Skonwertowane przy pomocy swietnego programu!";
+
+			for each (Object3D obj in model.models) {
+				plik << "g " << name.substr(0,name.length()-4) << " \n\n";
+				for each (Vertex v in obj.vertices)
+				{
+					/*plik <<"v  " << v.x << "  " << v.y << "  " << v.z << "\n";*/
+					plik << "v  ";
+					if (v.x == (int)v.x) {
+						plik << v.x << ".0";
+					}
+					else {
+						plik << v.x;
+					}
+					plik << "  ";
+					if (v.y == (int)v.y) {
+						plik << v.y << ".0";
+					}
+					else {
+						plik << v.y;
+					}
+					plik << "  ";
+					if (v.z == (int)v.z) {
+						plik << v.z << ".0";
+					}
+					else {
+						plik << v.z;
+					}
+					plik << "\n";
+				}
+				plik << "\n";
+				for each (Vertex vn in obj.normals)
+				{
+					//plik << "vn  " << vn.x << "  " << vn.y << "  " << vn.z << "\n";
+					plik << "vn  ";
+					if (vn.x == (int)vn.x) {
+						plik << vn.x << ".0";
+					}
+					else {
+						plik << vn.x;
+					}
+					plik << "  ";
+					if (vn.y == (int)vn.y) {
+						plik << vn.y << ".0";
+					}
+					else {
+						plik << vn.y;
+					}
+					plik << "  ";
+					if (vn.z == (int)vn.z) {
+						plik << vn.z << ".0";
+					}
+					else {
+						plik << vn.z;
+					}
+					plik << "\n";
+				}
+				plik << "\n";
+				for each (Vertex vt in obj.uvs)
+				{
+					plik << "vt  " << vt.x << "  " << vt.y << "  " << vt.z << "\n";
+				}
+				for each (Face f in obj.faces)
+				{
+					std::string tmp;
+					plik << "f  ";
+					if (f.first->vertexTexture == 0) {
+						if (!f.first->normalIndices == 0) {
+							plik << f.first->vertexIndices << "//";
+							plik << f.first->normalIndices << "  ";
+							plik << f.second->vertexIndices << "//";
+							plik << f.second->normalIndices << "  ";
+							plik << f.third->vertexIndices << "//";
+							plik << f.third->normalIndices << "\n";
+						}
+						else {
+							plik << f.first->vertexIndices << "  ";
+							plik << f.second->vertexIndices << "  ";
+							plik << f.third->vertexIndices << "  \n";
+						}
+					}
+					else {
+						if (!f.first->normalIndices == 0)
+						{
+							plik << f.first->vertexIndices << "/";
+							plik << f.first->vertexTexture << "/";
+							plik << f.first->normalIndices << "  ";
+							plik << f.second->vertexIndices << "/";
+							plik << f.second->vertexTexture << "/";
+							plik << f.second->normalIndices << "  ";
+							plik << f.third->vertexIndices << "/";
+							plik << f.third->vertexTexture << "/";
+							plik << f.third->normalIndices << "\n";
+						}
+						else {
+							plik << f.first->vertexIndices << "/";
+							plik << f.first->vertexTexture << "  ";
+							plik << f.second->vertexIndices << "/";
+							plik << f.second->vertexTexture << "  ";
+							plik << f.third->vertexIndices << "/";
+							plik << f.third->vertexTexture << "\n";
+						}
+					}
+
+				}
+				plik << "\n\n";
+			}
+			
 		}
 
 		Model3D importM(std::string fname)
@@ -138,7 +248,7 @@ namespace format {
 					if (tmp == "v ")
 					{
 						Vertex v;
-						std::vector<double> wekt = textToFloat(text.substr(3, text.length()));
+						std::vector<double> wekt = textToFloat(text.substr(2, text.length()));
 						v.x = wekt.at(0);
 						v.y = wekt.at(1);
 						v.z = wekt.at(2);
@@ -146,7 +256,7 @@ namespace format {
 					}
 					if (tmp == "vn")
 					{
-						std::vector<double> wekt = textToFloat(text.substr(3, text.length()));
+						std::vector<double> wekt = textToFloat(text.substr(2, text.length()));
 						Vertex v;
 						v.x = wekt.at(0);
 						v.y = wekt.at(1);
