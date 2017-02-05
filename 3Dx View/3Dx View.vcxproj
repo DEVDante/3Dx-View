@@ -166,7 +166,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GLWidget.cpp" />
-    <ClCompile Include="Library.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="Model3D.cpp" />
@@ -217,7 +216,6 @@
   <ItemGroup>
     <ClInclude Include="Face.h" />
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h" />
-    <ClInclude Include="Library.h" />
     <ClInclude Include="Model3D.h" />
     <ClInclude Include="Object3D.h" />
     <ClInclude Include="PluginAPI.h" />

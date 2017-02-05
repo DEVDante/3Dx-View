@@ -21,29 +21,83 @@ std::vector<double> textToFloat(std::string txt) {
 	return tmp_vector;
 }
 
-std::vector<int> textToInt(std::string tmp) {
-	std::string txt = "";
-	std::vector<int> tmp_vector;
-	for (int i = 0; i < tmp.length() + 1; i++) {
-		if (tmp[i] == ' '  && txt != "")
+Face textToInt(std::string txt) {
+
+	//goraco pozdrawiam osobe ktora wymyslila by zamiast tablicy punktow dac trzy zmienne punkty
+	//podobnie do struktury samego punktu...
+
+	std::string tmp = "";
+	Face tmp_face;
+	Point *tmp_point = new Point(0, 0, 0);
+	size_t n = std::count(txt.begin(), txt.end(), '/');
+	int it_p = 0;
+	int it_f = 0;
+	bool pass = true;
+	for (int i = 0; i < txt.length() + 1; i++) {
 		{
-			tmp_vector.push_back(std::stoi(txt));
-			txt = "";
-		}
-		else if (tmp[i] == '/')
-		{
-			if (txt == "")
-				tmp_vector.push_back(0);
-			else
-				tmp_vector.push_back(std::stoi(txt));
-			txt = "";
-		}
-		else {
-			txt += tmp[i];
+			if (txt[i] == ' ' || i == txt.length()) {
+				if (pass == false) {
+
+					switch (it_p) {
+					case 0:
+						tmp_point->vertexIndices = std::stoi(tmp);
+						break;
+					case 1:
+						if (tmp == "") {
+							tmp = "0";
+						}
+						tmp_point->vertexTexture = std::stoi(tmp);
+						break;
+					case 2:
+						tmp_point->normalIndices = std::stoi(tmp);
+						break;
+					}
+
+					switch (it_f) {
+					case 0:
+						tmp_face.first = tmp_point;
+						break;
+					case 1:
+						tmp_face.second = tmp_point;
+						break;
+					case 2:
+						tmp_face.third = tmp_point;
+						break;
+					}
+					it_f++;
+				}
+				pass = true;
+				tmp_point = new Point(0, 0, 0);
+				tmp = "";
+				it_p = 0;
+			}
+			else if (txt[i] == '/') {
+				switch (it_p) {
+				case 0:
+					tmp_point->vertexIndices = std::stoi(tmp);
+					break;
+				case 1:
+					if (tmp == "") {
+						tmp = "0";
+					}
+					tmp_point->vertexTexture = std::stoi(tmp);
+					break;
+				case 2:
+					tmp_point->normalIndices = std::stoi(tmp);
+					break;
+				}
+				it_p++;
+				tmp = "";
+
+			}
+
+			else {
+				tmp += txt[i];
+				pass = false;
+			}
 		}
 	}
-	tmp_vector.push_back(std::stod(tmp.c_str()));
-	return tmp_vector;
+	return tmp_face;
 }
 
 namespace format {
@@ -70,28 +124,10 @@ namespace format {
 			std::ifstream file(fname);
 			if (file.is_open())
 			{
+
 				std::string text = "";
 				std::string tmp = "";
-
-				unsigned int count_o = 0;
-				while (getline(file, text))
-				{
-					tmp = text.substr(0, 2);
-					if (tmp == "o " || tmp == "g ")
-					{
-						count_o++;
-					}
-				}
-
-				long int propIter = 0;
-
-				if (count_o) {
-					mdl->models.resize(count_o);
-					propIter = -1;
-				}
-				else
-					mdl->models.resize(1);
-
+				mdl->models.resize(1);
 
 
 				file.clear();
@@ -99,9 +135,6 @@ namespace format {
 
 				while (getline(file, text)) {
 					tmp = text.substr(0, 2);
-					if (tmp == "o " || tmp == "g ") {
-						propIter++;
-					}
 					if (tmp == "v ")
 					{
 						Vertex v;
@@ -109,7 +142,7 @@ namespace format {
 						v.x = wekt.at(0);
 						v.y = wekt.at(1);
 						v.z = wekt.at(2);
-						mdl->models[propIter].vertices.push_back(v);
+						mdl->models[0].vertices.push_back(v);
 					}
 					if (tmp == "vn")
 					{
@@ -118,18 +151,12 @@ namespace format {
 						v.x = wekt.at(0);
 						v.y = wekt.at(1);
 						v.z = wekt.at(2);
-						mdl->models[propIter].normals.push_back(v);
+						mdl->models[0].normals.push_back(v);
 					}
 					if (tmp == "f ")
 					{
-						std::vector<int> wekt = textToInt(text.substr(2, text.length()));
-						Face f;
-
-						f.first = new Point((int)wekt.at(0), (int)wekt.at(1), (int)wekt.at(2));
-						f.second = new Point((int)wekt.at(3), (int)wekt.at(4), (int)wekt.at(5));
-						f.third = new Point((int)wekt.at(6), (int)wekt.at(7), (int)wekt.at(8));
-
-						mdl->models[propIter].faces.push_back(f);
+						Face f = textToInt(text.substr(2, text.length()));
+						mdl->models[0].faces.push_back(f);
 					}
 
 				}
