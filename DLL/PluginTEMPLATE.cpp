@@ -113,7 +113,7 @@ namespace format {
 			return "obj";	//zwracac nazwe rozszerzenia
 		}
 				
-		void exportM(Model3D model, std::string name)
+		void exportM(Model3D* model, std::string name)
 		{
 
 			std::ofstream plik(name, std::ios_base::out);
@@ -228,7 +228,7 @@ namespace format {
 			
 		}
 
-		Model3D importM(std::string fname)
+		Model3D* importM(std::string fname)
 		{
 			Model3D *mdl = new Model3D();
 			std::ifstream file(fname);
@@ -273,7 +273,7 @@ namespace format {
 
 				file.close();
 			}
-			return *mdl;
+			return mdl;
 		}
 
 		~plugname() {

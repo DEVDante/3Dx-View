@@ -1,7 +1,9 @@
-﻿  PluginTEMPLATE.cpp
-c:\users\dante\documents\github\3dx-view\dll\plugintemplate.cpp(45): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+﻿  Vertex.cpp
+  PluginTEMPLATE.cpp
   PluginAPI.cpp
+  Object3D.cpp
+  Model3D.cpp
+  Face.cpp
   Generating Code...
-  LINK : C:\Users\Dante\Documents\GitHub\3Dx-View\x64\Debug\DLL.dll not found or not built by the last incremental link; performing full link
      Creating library C:\Users\Dante\Documents\GitHub\3Dx-View\x64\Debug\DLL.lib and object C:\Users\Dante\Documents\GitHub\3Dx-View\x64\Debug\DLL.exp
   DLL.vcxproj -> C:\Users\Dante\Documents\GitHub\3Dx-View\x64\Debug\DLL.dll

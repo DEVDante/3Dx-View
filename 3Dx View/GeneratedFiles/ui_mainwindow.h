@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.0
+** Created by: Qt User Interface Compiler version 5.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -43,8 +43,8 @@ public:
 
     void retranslateUi(QMainWindow *MainWindowClass)
     {
-        MainWindowClass->setWindowTitle(QApplication::translate("MainWindowClass", "MainWindow", 0));
-        actionView->setText(QApplication::translate("MainWindowClass", "View", 0));
+        MainWindowClass->setWindowTitle(QApplication::translate("MainWindowClass", "MainWindow", Q_NULLPTR));
+        actionView->setText(QApplication::translate("MainWindowClass", "View", Q_NULLPTR));
     } // retranslateUi
 
 };

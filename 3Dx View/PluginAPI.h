@@ -60,8 +60,8 @@ struct model
 class PluginAPI {
 public:
 	virtual std::string name() const = 0;		//nazwa obslugiwanego formatu
-	virtual void exportM(Model3D, std::string) = 0;
-	virtual Model3D importM(std::string) = 0;
+	virtual void exportM(Model3D*, std::string) = 0;
+	virtual Model3D* importM(std::string) = 0;
 	virtual ~PluginAPI() {}
 };
 
